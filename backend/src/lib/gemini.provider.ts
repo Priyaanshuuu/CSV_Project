@@ -8,6 +8,12 @@ export class GeminiProvider implements LLMProvider {
       contents: prompt,
     });
 
-    return response.text ?? "";
+    const text = response.text;
+
+    if (!text) {
+      throw new Error("Gemini returned an empty response.");
+    }
+
+    return text;
   }
 }
