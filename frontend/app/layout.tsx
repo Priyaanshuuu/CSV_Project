@@ -1,5 +1,5 @@
 import "./globals.css";
-import { UploadProvider } from "@/context/UploadContext";
+import { UploadProvider } from "@/context/uploadContext";
 import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({

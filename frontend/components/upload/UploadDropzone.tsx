@@ -6,15 +6,10 @@ import { Upload, FileSpreadsheet, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { uploadCSV } from "@/services/upload.service";
-import { UploadResponse } from "@/types/upload";
+import { useUploadContext } from "@/context/uploadContext";
 
-interface Props {
-  onUploadSuccess: (data: UploadResponse) => void;
-}
-
-export default function UploadDropzone({
-  onUploadSuccess,
-}: Props) {
+export default function UploadDropzone() {
+  const { dispatch } = useUploadContext();
   const [uploading, setUploading] = useState(false);
 
   const onDrop = useCallback(
@@ -36,41 +31,31 @@ export default function UploadDropzone({
       try {
         setUploading(true);
 
-        toast.loading("Uploading CSV...", {
-          id: "upload",
-        });
+        toast.loading("Uploading CSV...", { id: "upload" });
 
         const response = await uploadCSV(file);
 
-        toast.success("CSV Parsed Successfully!", {
-          id: "upload",
-        });
+        toast.success("CSV Parsed Successfully!", { id: "upload" });
 
-        onUploadSuccess(response);
+        dispatch({
+          type: "SET_PREVIEW",
+          payload: { file, preview: response },
+        });
       } catch (error: any) {
         toast.error(
-          error?.response?.data?.message ||
-            "Upload failed.",
-          {
-            id: "upload",
-          }
+          error?.response?.data?.message || "Upload failed.",
+          { id: "upload" }
         );
       } finally {
         setUploading(false);
       }
     },
-    [onUploadSuccess]
+    [dispatch]
   );
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     multiple: false,
-    accept: {
-      "text/csv": [".csv"],
-    },
+    accept: { "text/csv": [".csv"] },
     onDrop,
   });
 
@@ -78,14 +63,7 @@ export default function UploadDropzone({
     <div
       {...getRootProps()}
       className={`
-        cursor-pointer
-        rounded-2xl
-        border-2
-        border-dashed
-        p-12
-        transition-all
-        duration-300
-
+        cursor-pointer rounded-2xl border-2 border-dashed p-12 transition-all duration-300
         ${
           isDragActive
             ? "border-blue-500 bg-blue-500/10"
@@ -96,51 +74,30 @@ export default function UploadDropzone({
       <input {...getInputProps()} />
 
       <div className="flex flex-col items-center text-center">
-
         {uploading ? (
           <>
-            <Loader2
-              size={60}
-              className="animate-spin text-blue-500"
-            />
-
-            <h2 className="mt-6 text-2xl font-semibold">
-              Uploading...
-            </h2>
-
+            <Loader2 size={60} className="animate-spin text-blue-500" />
+            <h2 className="mt-6 text-2xl font-semibold">Uploading...</h2>
             <p className="mt-2 text-slate-400">
               Please wait while we parse your CSV.
             </p>
           </>
         ) : (
           <>
-            <Upload
-              size={60}
-              className="text-blue-500"
-            />
-
+            <Upload size={60} className="text-blue-500" />
             <h2 className="mt-6 text-2xl font-semibold">
               Drag & Drop CSV Here
             </h2>
-
-            <p className="mt-3 text-slate-400">
-              or click to browse files
-            </p>
-
+            <p className="mt-3 text-slate-400">or click to browse files</p>
             <div className="mt-8 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700">
               <FileSpreadsheet size={20} />
               Browse CSV
             </div>
-
             <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-slate-400">
               <span>CSV Only</span>
-
               <span>•</span>
-
               <span>Max 10 MB</span>
-
               <span>•</span>
-
               <span>Preview Before Import</span>
             </div>
           </>
