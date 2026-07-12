@@ -1,7 +1,7 @@
 import { buildCRMPrompt } from "../prompts/crm.prompt";
 import { ParsedCSVRecord } from "../types/upload.types";
 import { AIExtractionResponse, ConfidenceLevel } from "../types/ai.types";
-import { OpenAIProvider } from "../lib/openai.provider";
+import { GroqProvider } from "../lib/groq.provider";
 import { aiResponseSchema } from "../validators/ai-response.schema";
 import { withRetry } from "../utils/retry";
 import { AppError } from "../errors/AppError";
@@ -24,7 +24,7 @@ function stripMarkdownCodeBlock(text: string): string {
 }
 
 export class AIService {
-  private readonly provider = new OpenAIProvider();
+  private readonly provider = new GroqProvider();
 
   async extract(records: ParsedCSVRecord[]): Promise<AIExtractionResponse> {
     const prompt = buildCRMPrompt(records);
