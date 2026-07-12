@@ -39,7 +39,7 @@ export default function ProcessingOverlay() {
 
         <p className="mx-auto mt-4 max-w-xl text-center text-slate-400">
           Sit back and relax.
-          We're understanding your CSV,
+          We are understanding your CSV,
           mapping different column names,
           validating records and converting
           everything into GrowEasy CRM format.

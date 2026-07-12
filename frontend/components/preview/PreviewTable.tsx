@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { Eye, Play } from "lucide-react";
 
@@ -39,12 +40,17 @@ export default function PreviewTable() {
       });
 
       toast.success("CSV Imported Successfully");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = axios.isAxiosError<{ message?: string }>(error)
+        ? error.response?.data?.message ??
+          "Something went wrong while processing the CSV."
+        : error instanceof Error
+          ? error.message
+          : "Something went wrong while processing the CSV.";
+
       dispatch({
         type: "SET_ERROR",
-        payload:
-          error?.response?.data?.message ??
-          "Something went wrong while processing the CSV.",
+        payload: errorMessage,
       });
 
       toast.error("Import Failed");
@@ -108,7 +114,7 @@ export default function PreviewTable() {
 
       <div className="mt-10 overflow-hidden rounded-xl border border-slate-800">
 
-        <div className="max-h-[600px] overflow-auto">
+        <div className="max-h-150this page  overflow-auto">
 
           <table className="min-w-full border-collapse">
 
@@ -180,7 +186,7 @@ export default function PreviewTable() {
       <div className="mt-8 rounded-xl border border-blue-900/40 bg-blue-950/20 p-6">
 
         <h3 className="text-lg font-semibold text-blue-400">
-          What happens after you click "Start AI Import"?
+          What happens after you click `Start AI Import`?
         </h3>
 
         <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
