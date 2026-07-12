@@ -8,16 +8,11 @@ export async function uploadCSV(
 
   formData.append("file", file);
 
-  const { data } = await api.post(
-    "/upload",
-    formData,
-    {
-      headers: {
-        "Content-Type":
-          "multipart/form-data",
-      },
-    }
-  );
+  const { data } = await api.post("/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-  return data.data;
+  return data;
 }

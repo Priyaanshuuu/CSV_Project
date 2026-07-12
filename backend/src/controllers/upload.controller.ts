@@ -40,6 +40,7 @@ export const uploadCSVController = (req: Request, res: Response): void => {
     success: true,
     headers: parsed.headers,
     preview: parsed.records.slice(0, 10),
+    records: parsed.records,
     totalRows: parsed.totalRows,
   });
 };

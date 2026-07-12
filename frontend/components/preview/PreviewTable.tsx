@@ -114,7 +114,7 @@ export default function PreviewTable() {
 
       <div className="mt-10 overflow-hidden rounded-xl border border-slate-800">
 
-        <div className="max-h-150this page  overflow-auto">
+        <div className="max-h-[600px] overflow-auto">
 
           <table className="min-w-full border-collapse">
 
@@ -186,7 +186,7 @@ export default function PreviewTable() {
       <div className="mt-8 rounded-xl border border-blue-900/40 bg-blue-950/20 p-6">
 
         <h3 className="text-lg font-semibold text-blue-400">
-          What happens after you click `Start AI Import`?
+          What happens after you click &quot;Start AI Import&quot;?
         </h3>
 
         <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
