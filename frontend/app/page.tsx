@@ -23,7 +23,6 @@ export default function Home() {
     <main className="min-h-screen bg-slate-950 text-white">
       <Navbar />
 
-      {/* ── IDLE: Upload screen ── */}
       {state.status === "idle" && (
         <section className="mx-auto flex max-w-7xl flex-col items-center px-6 py-20">
           <div className="max-w-3xl text-center">
@@ -56,13 +55,10 @@ export default function Home() {
         </section>
       )}
 
-      {/* ── PROCESSING ── */}
+    
       {state.status === "processing" && <ProcessingOverlay />}
-
-      {/* ── COMPLETED ── */}
       {state.status === "completed" && state.result && (
         <section className="mx-auto max-w-7xl px-6 py-12 space-y-8">
-          {/* Success header */}
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-3">
               <CheckCircle2 size={32} className="text-green-500" />

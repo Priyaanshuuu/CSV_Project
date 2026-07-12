@@ -1,7 +1,7 @@
 import { buildCRMPrompt } from "../prompts/crm.prompt";
 import { ParsedCSVRecord } from "../types/upload.types";
 import { AIExtractionResponse, ConfidenceLevel } from "../types/ai.types";
-import { GeminiProvider } from "../lib/gemini.provider";
+import { OpenAIProvider } from "../lib/openai.provider";
 import { aiResponseSchema } from "../validators/ai-response.schema";
 import { withRetry } from "../utils/retry";
 import { AppError } from "../errors/AppError";
@@ -15,8 +15,7 @@ const RETRY_OPTIONS = {
   },
 };
 
-// Gemini sometimes wraps JSON in markdown code fences despite instructions.
-// Strip them before parsing so we never fail on formatting artifacts.
+// Some models wrap JSON in markdown code fences despite instructions — strip them.
 function stripMarkdownCodeBlock(text: string): string {
   return text
     .replace(/^```(?:json)?\s*/i, "")
@@ -25,7 +24,7 @@ function stripMarkdownCodeBlock(text: string): string {
 }
 
 export class AIService {
-  private readonly provider = new GeminiProvider();
+  private readonly provider = new OpenAIProvider();
 
   async extract(records: ParsedCSVRecord[]): Promise<AIExtractionResponse> {
     const prompt = buildCRMPrompt(records);
