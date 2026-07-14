@@ -1,0 +1,8 @@
+Name,Contact,Email 1,Email 2,WhatsApp,Location,Project,Status,Comments,Submission Time
+"Sharma, Rajesh",+91-98765-43210,rajesh.sharma@gmail.com,rajesh.sharma@company.com,9876543210,"Mumbai, Maharashtra",eden_park,Interested,"Has two emails. Primary is gmail. Wants 2BHK. Budget is 80L. Also interested in meridian_tower as backup.",2024-05-01 10:00
+Ahmed Khan,00971501234567,ahmed.khan@email.ae,,501234567,Dubai,leads_on_demand,Callback Needed,NRI investor. Calling from UAE. Best time to call is after 6PM IST.,2024-05-01 11:30
+"Ms. Priya R.",9123456789,,,,Pune,meridian_tower,Follow Up,No email provided. Phone only. Interested in studio apartment.,2024-05-02 09:15
+Duplicate Test,9876543210,rajesh.sharma@gmail.com,,,Mumbai,eden_park,Interested,This record has same phone and email as first record - system should still process it.,2024-05-02 10:00
+No Contact At All,,,,,,sarjapur_plots,Inquiry,This lead has no email and no phone - should be skipped per rules.,2024-05-02 11:00
+International Lead,+1-415-555-0199,jane.doe@sanfrancisco.com,,4155550199,"San Francisco, CA",leads_on_demand,New,US-based NRI looking to invest in India.,2024-05-03 08:00
+"Gupta, A.K.",9988001122,ak.gupta@gupta-corp.in,,,"Indore, MP",varah_swamy,Site Visit Done,"Visited site on 30th April. Liked plot no. 45. Wants to negotiate price. Alt phone: 9988001133. Spouse name: Sunita Gupta.",2024-05-03 14:00
