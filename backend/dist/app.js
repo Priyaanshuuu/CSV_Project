@@ -10,8 +10,18 @@ const upload_routes_1 = __importDefault(require("./routes/upload.routes"));
 const process_route_1 = __importDefault(require("./routes/process.route"));
 const error_middleware_1 = require("./middleware/error.middleware");
 const app = (0, express_1.default)();
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:3000")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 app.use((0, cors_1.default)({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+            return;
+        }
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true,
 }));
 app.use(express_1.default.json({ limit: "1mb" }));
